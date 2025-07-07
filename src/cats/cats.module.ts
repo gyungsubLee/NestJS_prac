@@ -9,7 +9,7 @@ export type CatType = {
 
 export const Cat: CatType[] = [
   {
-    id: "fsduifh",
+    id: "1",
     name: "blue",
     age: 8,
     species: "Russian Blue",
@@ -17,7 +17,7 @@ export const Cat: CatType[] = [
     friends: ["asdfhj29009", "WE09tju2j"],
   },
   {
-    id: "iohf2309q4hr",
+    id: "2",
     name: "som",
     age: 4,
     species: "Sphynx cat",
@@ -25,7 +25,7 @@ export const Cat: CatType[] = [
     friends: ["weju0fj20qj", "asdfhj29009", "weju0fj20qj"],
   },
   {
-    id: "WE09tju2j",
+    id: "3",
     name: "lean",
     age: 6,
     species: "Munchkin",
@@ -33,7 +33,7 @@ export const Cat: CatType[] = [
     friends: [],
   },
   {
-    id: "asdfhj29009",
+    id: "4",
     name: "star",
     age: 10,
     species: "Scottish Fold",
@@ -41,7 +41,7 @@ export const Cat: CatType[] = [
     friends: ["weju0fj20qj"],
   },
   {
-    id: "weju0fj20qj",
+    id: "5",
     name: "red",
     age: 2,
     species: "Sharm",
