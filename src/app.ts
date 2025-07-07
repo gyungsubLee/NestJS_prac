@@ -1,34 +1,58 @@
-console.log("🔥 앱 시작됨");
-
 import express from "express";
 import catRouter from "./cats/cats.route.js";
 
-const app: express.Application = express();
+const port = 8000;
 
-console.log("✅ express 객체 생성");
+class Server {
+  private static instance: Server;
+  public app: express.Application;
 
-app.use((req, res, next) => {
-  console.log(req.rawHeaders[1]);
-  console.log("this is middleware");
-  next();
-});
+  constructor() {
+    this.app = express();
+  }
 
-/**  
- * json 미들웨어 설정
-    해당 설정은 클라이언트가 보낸 JSON 형식의 요청 본문을
-    자동으로 파싱하여 req.body에 저장한다.
-*/
-app.use(express.json());
+  public static getInstance(): Server {
+    if (!Server.instance) {
+      Server.instance = new Server();
+    }
+    return Server.instance;
+  }
 
-// 라우터 등록
-app.use(catRouter);
+  private setRoute() {
+    this.app.use(catRouter);
+  }
 
-// 404 에러 핸들링
-app.use((req, res, next) => {
-  console.log("this is error middleware");
-  res.send({ error: "404 not found error" });
-});
+  private setMiddleware() {
+    //* logging middleware
+    this.app.use((req, res, next) => {
+      console.log(req.rawHeaders[1]);
+      console.log("this is logging middleware");
+      next();
+    });
 
-app.listen(8000, () => {
-  console.log("server is on...");
-});
+    //* json middleware
+    this.app.use(express.json());
+
+    this.setRoute();
+
+    //* 404 middleware
+    this.app.use((req, res, next) => {
+      console.log("this is error middleware");
+      res.send({ error: "404 not found" });
+    });
+  }
+
+  public listen(port: number) {
+    this.setMiddleware();
+    this.app.listen(port, () => {
+      console.log("Server is running on port", port);
+    });
+  }
+}
+
+function init() {
+  const server = Server.getInstance(); // 🔄 항상 동일 인스턴스
+  server.listen(port);
+}
+
+init();
