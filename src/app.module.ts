@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { LoggerMiddleware } from './common/middlewares/logger/logger.middleware';
+import mongoose from 'mongoose';
 
 @Module({
   imports: [
@@ -16,7 +17,9 @@ import { LoggerMiddleware } from './common/middlewares/logger/logger.middleware'
   providers: [AppService],
 })
 export class AppModule implements NestModule {
+  private readonly isDev: boolean = process.env.MODE === 'dev' ? true : false;
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(LoggerMiddleware).forRoutes('*');
+    mongoose.set('debug', this.isDev); // Mongoose 디버그 모드 활성화
   }
 }
