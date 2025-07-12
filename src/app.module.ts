@@ -9,9 +9,12 @@ import mongoose from 'mongoose';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRoot(
       process.env.MONGODB_URI || 'mongodb://localhost/nest',
+      {
+        dbName: 'nest',
+      },
     ),
     CatsModule,
   ],

@@ -7,23 +7,26 @@ export type CatDocument = HydratedDocument<Cat>;
 @Schema()
 export class Cat {
   @Prop({ required: true, unique: true })
-  @IsEmail()
-  @IsNotEmpty()
   email: string;
 
   @Prop({ required: true })
-  @IsString()
-  @IsNotEmpty()
   name: string;
 
   @Prop({ required: true })
-  @IsString()
-  @IsNotEmpty()
   password: string;
 
   @Prop()
-  @IsString()
   imgUrl: string;
+
+  readonly readOnlyData: { id: string; email: string; imgUrl: string };
 }
 
 export const CatSchema = SchemaFactory.createForClass(Cat);
+
+CatSchema.virtual('readOnlyData').get(function (this: Cat) {
+  return {
+    email: this.email,
+    name: this.name,
+    imgUrl: this.imgUrl,
+  };
+});
