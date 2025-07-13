@@ -18,6 +18,12 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new HttpErrorFilter());
+  app.enableCors({
+    origin:
+      process.env.Mode === 'dev' ? '*' : process.env.CORS_ORIGIN?.split(','),
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  });
 
   await app.listen(process.env.PORT ?? 3000);
 }
