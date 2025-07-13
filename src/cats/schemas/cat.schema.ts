@@ -18,15 +18,15 @@ export class Cat {
   @Prop()
   imgUrl: string;
 
-  readonly readOnlyData: { id: string; email: string; imgUrl: string };
+  readonly readOnlyData: { id: string; email: string; name: string };
 }
 
 export const CatSchema = SchemaFactory.createForClass(Cat);
 
-CatSchema.virtual('readOnlyData').get(function (this: Cat) {
+CatSchema.virtual('readOnlyData').get(function (this: HydratedDocument<Cat>) {
   return {
+    id: this._id.toString(),
     email: this.email,
     name: this.name,
-    imgUrl: this.imgUrl,
   };
 });

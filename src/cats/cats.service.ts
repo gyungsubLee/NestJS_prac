@@ -1,5 +1,5 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { CatRequestDto } from './dto/CatRequestDto';
+import { CatRequestDto } from './dto/cats.request.dto';
 import { Model } from 'mongoose';
 import { Cat } from './schemas/cat.schema';
 import { InjectModel } from '@nestjs/mongoose';
