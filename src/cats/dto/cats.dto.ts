@@ -1,21 +1,11 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, PickType } from '@nestjs/swagger';
+import { Cat } from '../schemas/cat.schema';
 
-export class readOnlyCatData {
+export class readOnlyCatData extends PickType(Cat, ['email', 'name'] as const) {
   @ApiProperty({
-    example: '34245155',
+    example: '68738166cfb95410ad3d24f1',
     description: 'id',
+    required: true,
   })
   id: string;
-
-  @ApiProperty({
-    example: 'test@email.com',
-    description: 'email',
-  })
-  email: string;
-
-  @ApiProperty({
-    example: 'test',
-    description: 'name',
-  })
-  imgUrl: string;
 }
